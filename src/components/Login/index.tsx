@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from 'react';
-import { Button, Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, Button, Image, NativeSyntheticEvent, Text, TextInput, TextInputChangeEventData, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { setIsLogin } from "../../store/dataSlice";
 import { useAppDispatch } from "../../store/hooks";
@@ -9,7 +9,12 @@ import { styles } from "./styles";
 const Login = () => {
 	const dispatch = useAppDispatch()
 	const [isPasswordShown, setIsPasswordShown] = useState(false);
+	const [email, setEmail] = useState("")
+	const [password, setPassword] = useState("")
 	const handleLogin = () => {
+		if (!email || !password) {
+			return Alert.alert("Fill the email and password")
+		}
 		dispatch(setIsLogin(true))
 	}
 	return (
@@ -31,6 +36,8 @@ const Login = () => {
 							placeholder='Enter your email address'
 							placeholderTextColor={"#000"}
 							keyboardType='email-address'
+							value={email}
+							onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => setEmail(e.nativeEvent.text)}
 							style={{
 								width: "100%"
 							}}
@@ -46,6 +53,8 @@ const Login = () => {
 							placeholder='Enter your password'
 							placeholderTextColor={"#000"}
 							secureTextEntry={isPasswordShown}
+							value={password}
+							onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => setPassword(e.nativeEvent.text)}
 							style={{
 								width: "100%"
 							}}
@@ -98,7 +107,6 @@ const Login = () => {
 					justifyContent: 'center'
 				}}>
 					<TouchableOpacity
-						onPress={() => console.log("Pressed")}
 						style={styles.iconContainer}
 					>
 						<Image
@@ -115,7 +123,6 @@ const Login = () => {
 					</TouchableOpacity>
 
 					<TouchableOpacity
-						onPress={() => console.log("Pressed")}
 						style={styles.iconContainer}
 					>
 						<Image
