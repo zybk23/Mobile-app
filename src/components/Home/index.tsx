@@ -5,7 +5,7 @@ import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
 interface locationTypes {
 	title: string
-	location: { latitude: number, longtitude: number }
+	location: { latitude: number, longtitude: number } | any
 	description: string
 }
 
